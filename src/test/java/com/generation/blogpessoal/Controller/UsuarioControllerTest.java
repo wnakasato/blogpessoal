@@ -59,20 +59,18 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    @DisplayName("Nao deve permitir duplicacao de usuario")
-    public void naoDeveduplicarUsuario() {
+    @DisplayName("Não deve permitir duplicação de usuário")
+    public void naoDeveDuplicarUsuario(){
 
-        usuarioService.cadastrarUsuario(new Usuario(0L, "Maria da Silva", "maria_Silva@email.com",
-                "12345", "https://bityli.com/1B8Ax"));
-
-        HttpEntity<Usuario> corpoRequisicao = new Usuario(0L, "marcos da silva", "marcos_silva@email.com.br",
-                "12345678", "https://bityli.com/1B8Ax"));
+        usuarioService.cadastrarUsuario(new Usuario(0L,"Maria silva", "maria_silva@email.com.br","12345678","http://i.imgur.com/yDRVeK7.jpg"));
+        HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario(0L,"Maria silva", "maria_silva@email.com.br","12345678","http://i.imgur.com/yDRVeK7.jpg"));
 
         ResponseEntity<Usuario> corpoResposta = testRestTemplate
                 .exchange("/usuarios/cadastrar", HttpMethod.POST, corpoRequisicao, Usuario.class);
-        assertEquals(HttpStatus.BAD_REQUEST, corpoResposta.getStatusCode());
 
+        assertEquals(HttpStatus.BAD_REQUEST, corpoResposta.getStatusCode());
     }
+    
 
         @Test
         @DisplayName("Atualizar um Usuario")
